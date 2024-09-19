@@ -1,7 +1,7 @@
 
 const predefinedCredentials = {
-    email: "keya@gmail.com",
-    password: "mayank"
+    email: "keyaamin07@gmail.com",
+    password: "shittypieceofbonelessmeat"
 };
 
 
