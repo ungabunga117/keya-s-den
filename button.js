@@ -1,43 +1,4 @@
-// Spotify Web Playback SDK Integration
-window.onSpotifyWebPlaybackSDKReady = () => {
-    const token = 'YOUR_SPOTIFY_ACCESS_TOKEN'; // Replace with your Spotify access token
-    const player = new Spotify.Player({
-        name: 'Keya\'s Player',
-        getOAuthToken: cb => { cb(token); },
-        volume: 1
-    });
-
-    player.addListener('ready', ({ device_id }) => {
-        console.log('Ready with Device ID', device_id);
-        // Transfer playback to this device
-        fetch(`https://api.spotify.com/v1/me/player`, {
-            method: 'PUT',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ device_ids: [device_id] })
-        });
-    });
-
-    player.addListener('player_state_changed', state => {
-        console.log('Player State Changed', state);
-    });
-
-    player.connect();
-
-    // Play/Pause Button
-    document.getElementById('playPauseBtn').addEventListener('click', () => {
-        player.togglePlay();
-    });
-
-    // Volume Slider
-    document.getElementById('volumeSlider').addEventListener('input', (e) => {
-        player.setVolume(e.target.value);
-    });
-};
-
-// Login and Content Display Logic
+// Login Logic
 const predefinedCredentials = {
     email: "keyaamin07@gmail.com",
     password: "shittypieceofbonelessmeat"
@@ -55,6 +16,16 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
     } else {
         alert("Invalid email or password.");
     }
+});
+
+// Placeholder Media Player Logic
+const playPauseBtn = document.getElementById("playPauseBtn");
+const playIcon = document.getElementById("playIcon");
+let isPlaying = false;
+
+playPauseBtn.addEventListener("click", () => {
+    isPlaying = !isPlaying;
+    playIcon.name = isPlaying ? "pause" : "play";
 });
 
 // Card Display Logic
