@@ -9,63 +9,72 @@
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </head>
 <body>
-    <section>
-        <!-- Video Background -->
-        <video id="loginVideo" src="91088-629483824_large.mov" autoplay loop muted></video>
-        <video id="loggedInVideo" class="hidden" src="8740-214159370_large.mov" autoplay loop muted></video>
+    <!-- Video Background -->
+    <video id="backgroundVideo" src="background-video.mp4" autoplay loop muted></video>
 
-        <!-- Login Form -->
-        <div class="form-box" id="loginFormContainer">
-            <button id="closeButton" class="close-btn">✖</button>
-            <div class="form-value">
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Login Section -->
+        <div class="login-section" id="loginSection">
+            <div class="login-box">
+                <h2>Welcome Back, Keya</h2>
                 <form id="loginForm">
-                    <h2>Login</h2>
-                    <div class="inputbox">
+                    <div class="input-group">
                         <ion-icon name="mail-outline"></ion-icon>
-                        <input type="email" id="email" required>
-                        <label>Email</label>
+                        <input type="email" id="email" placeholder="Email" required>
                     </div>
-                    <div class="inputbox">
+                    <div class="input-group">
                         <ion-icon name="lock-closed-outline"></ion-icon>
-                        <input type="password" id="password" required>
-                        <label>Password</label>
+                        <input type="password" id="password" placeholder="Password" required>
                     </div>
-                    <div class="forget">
-                        <label><input type="checkbox" id="rememberMe"> Remember Me</label>
-                        <a href="forget.html">Forgot Password?</a>
-                    </div>
-                    <button type="submit">Log in</button>
+                    <button type="submit">Log In</button>
                 </form>
             </div>
         </div>
 
-        <!-- Main Content -->
-        <div class="content-container hidden" id="contentContainer">
-            <div class="left-content">
-                <h2>To my Beautiful Babe, I Love You</h2>
+        <!-- Content Section (Hidden Initially) -->
+        <div class="content-section hidden" id="contentSection">
+            <!-- Spotify Player -->
+            <div class="media-player">
+                <div id="spotifyPlayer"></div>
+                <div class="player-controls">
+                    <button id="playPauseBtn">
+                        <ion-icon name="play"></ion-icon>
+                    </button>
+                    <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1">
+                </div>
+            </div>
+
+            <!-- Open When Letters -->
+            <div class="letters-section">
+                <h2>Open When Letters</h2>
+                <div class="cards-container" id="cardsContainer">
+                    <!-- Cards will be dynamically added here -->
+                </div>
+            </div>
+
+            <!-- Heartfelt Message -->
+            <div class="message-section">
+                <h2>To My Beautiful Babe, I Love You</h2>
                 <p>
                     Hey so I began creating this page on...11th August I think? Wanted to give you a birthday Present, but now I think I Will show this to you on 5-6th September, hopefully. What I am trying to make here is very ambitious for me because I have never done front end so I won't be surprised if half the content I am planning for this website won't even make it to the final cut. Anyway, I wanted to give you something that lasts. Flowers die, paper tear away, clothes shrink and toys break. Something digital like this? Well It won't stop working or crash like FaceTime unless I rig the page with false or bad code. By the time of writing this, it's already 1:45 AM, 16th August and you are sleeping. I gotta say Keya, you are one unexpected entry to my life. But somewhere deep down, I kinda had the gut feeling that a person made for me is around the corner. The crazy part? It's been 20 days since we matched and I am already so confident in you. We both are on each other. This website, it took me longer than I expected because, one, I am doing this stuff after so long and I was never really good at designing at front end. I had to use some help from ChatGPT and it wasn't really cooperative. I wrote you these open when letters. I wanted to add a few more things and make it more present-worthy but I found out that I am not really that creative the hard way. I love you, it's all that ever is. You won my heart so quickly. You know when I was damn sure that I am gonna fall hard for you? It was when you hugged me and held my hands all by yourself. So yeah, consider this your 19th birthday and our first month anniversary present from your loving boyfriend hehe. Sorry if this turns out to be pretty stale when I show this to you because implementing stuff that I have never made is taking time. I will make sure to keep on updating the website time to time. I love you.<br>
                     Update 5th September, 5:33am: So much wrong with this website, so much extra code that never made into what I have right now. The scrolling cards are duplicating. They are 6 in total but are scrolling as if they are 12. The site is slow because of unnecessary code which I am no longer using (think music player, photo album, puzzles). Haha I hope you like it tho.
                 </p>
             </div>
-
-            <!-- Cards Container -->
-            <div class="cards-container">
-                <h2>Open When Letters</h2>
-                <ul class="cards" id="cardsContainer"></ul>
-            </div>
         </div>
+    </div>
 
-        <!-- Modal -->
-        <div id="cardModal" class="modal hidden">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h3 id="modalTitle"></h3>
-                <p id="modalContent"></p>
-            </div>
+    <!-- Modal for Card Content -->
+    <div class="modal hidden" id="cardModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3 id="modalTitle"></h3>
+            <p id="modalContent"></p>
         </div>
-    </section>
+    </div>
 
+    <!-- Spotify Web Playback SDK -->
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
     <script src="button.js"></script>
 </body>
 </html>
