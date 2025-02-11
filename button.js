@@ -1,3 +1,43 @@
+// Spotify Web Playback SDK Integration
+window.onSpotifyWebPlaybackSDKReady = () => {
+    const token = 'YOUR_SPOTIFY_ACCESS_TOKEN'; // Replace with your Spotify access token
+    const player = new Spotify.Player({
+        name: 'Keya\'s Player',
+        getOAuthToken: cb => { cb(token); },
+        volume: 1
+    });
+
+    player.addListener('ready', ({ device_id }) => {
+        console.log('Ready with Device ID', device_id);
+        // Transfer playback to this device
+        fetch(`https://api.spotify.com/v1/me/player`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ device_ids: [device_id] })
+        });
+    });
+
+    player.addListener('player_state_changed', state => {
+        console.log('Player State Changed', state);
+    });
+
+    player.connect();
+
+    // Play/Pause Button
+    document.getElementById('playPauseBtn').addEventListener('click', () => {
+        player.togglePlay();
+    });
+
+    // Volume Slider
+    document.getElementById('volumeSlider').addEventListener('input', (e) => {
+        player.setVolume(e.target.value);
+    });
+};
+
+// Login and Content Display Logic
 const predefinedCredentials = {
     email: "keyaamin07@gmail.com",
     password: "shittypieceofbonelessmeat"
@@ -10,85 +50,42 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
     const passwordInput = document.getElementById("password").value.trim();
 
     if (emailInput === predefinedCredentials.email && passwordInput === predefinedCredentials.password) {
-        fadeOutLoginForm();
-        setTimeout(() => {
-            document.getElementById("contentContainer").classList.add("visible");
-            displayCards();
-        }, 1000);
+        document.getElementById("loginSection").classList.add("hidden");
+        document.getElementById("contentSection").classList.remove("hidden");
     } else {
         alert("Invalid email or password.");
     }
 });
 
-function fadeOutLoginForm() {
-    const loginFormContainer = document.getElementById("loginFormContainer");
-    const loginVideo = document.getElementById("loginVideo");
-    const loggedInVideo = document.getElementById("loggedInVideo");
+// Card Display Logic
+const cardsData = [
+    { title: 'Open When You Feel Discouraged', content: '...' },
+    { title: 'Open When You Miss Me', content: '...' },
+    { title: 'Open When You Need a Laugh', content: '...' },
+    { title: 'Open When You’re Sad', content: '...' },
+    { title: 'Open When You’re Stressed', content: '...' },
+    { title: 'Open When You Can’t Sleep', content: '...' },
+    { title: 'Open When You Feel Confused', content: '...' }
+];
 
-    loginFormContainer.style.opacity = 0;
-    loginVideo.style.opacity = 0;
+const cardsContainer = document.getElementById("cardsContainer");
 
-    setTimeout(() => {
-        loginFormContainer.classList.add("hidden");
-        loginVideo.classList.add("hidden");
-        loggedInVideo.classList.remove("hidden");
-        loggedInVideo.style.opacity = 1;
-    }, 1000);
-}
-
-function displayCards() {
-    const cardsData = [
-        { title: 'Open When You Feel Discouraged', content: '...' },
-        { title: 'Open When You Miss Me', content: '...' },
-        { title: 'Open When You Need a Laugh', content: '...' },
-        { title: 'Open When You’re Sad', content: '...' },
-        { title: 'Open When You’re Stressed', content: '...' },
-        { title: 'Open When You Can’t Sleep', content: '...' },
-        { title: 'Open When You Feel Confused', content: '...' }
-    ];
-
-    const cardsContainer = document.getElementById("cardsContainer");
-
-    cardsData.forEach((cardData) => {
-        const card = document.createElement("li");
-        card.className = "card";
-        const previewContent = cardData.content.split(" ").slice(0, 20).join(" ");
-
-        card.innerHTML = `
-            <div>
-                <h3 class="card-title">${cardData.title}</h3>
-                <p class="card-text">${previewContent}...</p>
-            </div>
-            <a href="#" class="card-link">Read More</a>
-        `;
-
-        card.querySelector('.card-link').addEventListener('click', (e) => {
-            e.preventDefault();
-            openCardModal(cardData.title, cardData.content);
-        });
-
-        cardsContainer.appendChild(card);
+cardsData.forEach((cardData) => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+        <h3>${cardData.title}</h3>
+        <p>${cardData.content.split(" ").slice(0, 20).join(" ")}...</p>
+    `;
+    card.addEventListener("click", () => {
+        document.getElementById("modalTitle").textContent = cardData.title;
+        document.getElementById("modalContent").textContent = cardData.content;
+        document.getElementById("cardModal").classList.add("visible");
     });
-}
+    cardsContainer.appendChild(card);
+});
 
-function openCardModal(title, content) {
-    const modal = document.getElementById("cardModal");
-    const modalTitle = document.getElementById("modalTitle");
-    const modalContent = document.getElementById("modalContent");
-
-    modalTitle.textContent = title;
-    modalContent.textContent = content;
-
-    modal.classList.add("visible");
-
-    document.querySelector("#cardModal .close").addEventListener("click", () => {
-        modal.classList.remove("visible");
-    });
-}
-
-window.addEventListener("click", (event) => {
-    const modal = document.getElementById("cardModal");
-    if (event.target === modal) {
-        modal.classList.remove("visible");
-    }
+// Close Modal
+document.querySelector(".close-modal").addEventListener("click", () => {
+    document.getElementById("cardModal").classList.remove("visible");
 });
