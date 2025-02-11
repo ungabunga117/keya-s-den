@@ -1,24 +1,17 @@
+/* General Styles */
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
 
-:root {
-    --primary-color: #0360fb;
-    --text-color: #fff;
-    --background-color: rgba(255, 255, 255, 0.2);
-    --blur-intensity: blur(15px);
-}
-
-section {
-    position: relative;
+body {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    width: 100%;
+    background: #000;
     overflow: hidden;
 }
 
@@ -30,147 +23,157 @@ video {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: -2;
-    transition: opacity 2s ease-in-out;
+    z-index: -1;
 }
 
-.hidden {
-    display: none;
-}
-
-/* Login Form */
-.form-box {
+/* Container */
+.container {
     position: relative;
-    width: 400px;
-    padding: 40px;
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    border-radius: 20px;
-    backdrop-filter: var(--blur-intensity);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: opacity 0.5s ease;
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
     z-index: 1;
 }
 
-.form-value form h2 {
-    font-size: 2em;
-    color: var(--text-color);
-    text-align: center;
-    margin-bottom: 20px;
+/* Login Section */
+.login-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-.inputbox {
-    position: relative;
+.login-box {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 40px;
     width: 100%;
-    margin-bottom: 20px;
-    border-bottom: 2px solid var(--text-color);
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-.inputbox label {
+.login-box h2 {
+    color: #fff;
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-group ion-icon {
     position: absolute;
     top: 50%;
-    left: 5px;
+    left: 10px;
     transform: translateY(-50%);
-    color: var(--text-color);
-    font-size: 1em;
-    pointer-events: none;
-    transition: 0.5s;
-}
-
-.inputbox input:focus ~ label,
-.inputbox input:valid ~ label {
-    top: -5px;
-    font-size: 0.8em;
-}
-
-.inputbox input {
-    width: 100%;
-    height: 50px;
-    background: transparent;
-    border: none;
-    outline: none;
-    font-size: 1em;
-    padding: 0 5px;
-    color: var(--text-color);
-}
-
-.inputbox ion-icon {
-    position: absolute;
-    right: 10px;
-    top: 15px;
-    color: var(--text-color);
+    color: #fff;
     font-size: 1.2em;
 }
 
-.forget {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    color: var(--text-color);
-    font-size: 0.9em;
+.input-group input {
+    width: 100%;
+    padding: 10px 10px 10px 40px;
+    border: none;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-size: 1em;
+    outline: none;
 }
 
-.forget a {
-    color: var(--text-color);
-    text-decoration: none;
-}
-
-.forget a:hover {
-    text-decoration: underline;
+.input-group input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
 }
 
 button {
     width: 100%;
-    height: 40px;
-    border-radius: 40px;
-    background: var(--text-color);
+    padding: 10px;
     border: none;
-    outline: none;
-    cursor: pointer;
+    border-radius: 25px;
+    background: #fff;
+    color: #000;
     font-size: 1em;
     font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
 }
 
-/* Content Container */
-.content-container {
+button:hover {
+    background: #ddd;
+}
+
+/* Content Section */
+.content-section {
     display: none;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 40px 20px;
-    max-width: 1200px;
-    width: 100%;
-    color: var(--text-color);
-    z-index: 1;
+    gap: 40px;
+    color: #fff;
 }
 
-.content-container.visible {
+.content-section.visible {
     display: flex;
 }
 
-/* Cards */
-.cards-container {
+/* Spotify Player */
+#spotifyPlayer {
     width: 100%;
-    padding: 0 20px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    margin-bottom: 20px;
 }
 
-.cards {
+.player-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.player-controls button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+.player-controls input[type="range"] {
+    width: 100px;
+}
+
+/* Letters Section */
+.letters-section {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.letters-section h2 {
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+.cards-container {
     display: flex;
     gap: 20px;
-    list-style: none;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
 }
 
 .card {
-    flex: 0 0 30%;
-    background: var(--background-color);
-    backdrop-filter: var(--blur-intensity);
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    flex: 0 0 300px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
     padding: 20px;
-    scroll-snap-align: center;
+    scroll-snap-align: start;
+    cursor: pointer;
     transition: transform 0.3s ease;
 }
 
@@ -178,23 +181,14 @@ button {
     transform: scale(1.05);
 }
 
-.card .card-title {
-    font-size: 1.5em;
+.card h3 {
+    font-size: 1.2em;
     margin-bottom: 10px;
 }
 
-.card .card-link {
-    text-decoration: none;
-    color: var(--text-color);
-    background: var(--primary-color);
-    padding: 10px 20px;
-    border-radius: 5px;
-    transition: background 0.3s ease;
-}
-
-.card .card-link:hover {
-    background: var(--text-color);
-    color: var(--primary-color);
+.card p {
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.8);
 }
 
 /* Modal */
@@ -211,7 +205,7 @@ button {
     z-index: 10;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.3s ease;
 }
 
 .modal.visible {
@@ -222,14 +216,15 @@ button {
 .modal-content {
     background: #fff;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 15px;
     max-width: 90%;
     max-height: 80%;
     overflow-y: auto;
+    color: #000;
     position: relative;
 }
 
-.modal-content .close {
+.close-modal {
     position: absolute;
     top: 10px;
     right: 10px;
